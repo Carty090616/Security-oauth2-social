@@ -1,6 +1,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.carty.security</groupId>
   <artifactId>carty-security-browser</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <parent>
+  	<groupId>com.carty.security</groupId>
+  	<artifactId>carty-security</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	<relativePath>../carty-security</relativePath>
+  </parent>
+  
+  <dependencies>
+		<dependency>
+			<groupId>com.carty.security</groupId>
+			<artifactId>carty-security-core</artifactId>
+			<version>${carty.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+	</dependencies>
 </project>
