@@ -1,0 +1,17 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.carty.security.core.properties.SecurityProperties",
+      "name": "carty.security",
+      "type": "com.carty.security.core.properties.SecurityProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.carty.security.core.properties.SecurityProperties",
+      "name": "carty.security.browser",
+      "type": "com.carty.security.core.properties.BrowserProperties"
+    }
+  ]
+}
