@@ -40,7 +40,7 @@ public class QueueListener implements ApplicationListener<ContextRefreshedEvent>
 					//由于是模拟订单队列,所以需要将CompleteOrder置为空，放置一直监听器循环
 					mockQueue.setCompleteOrder(null);
 				} else {
-					log.info("监听器沉睡");
+//					log.info("监听器沉睡");
 					try {
 						Thread.sleep(2000);
 					} catch (Exception e) {

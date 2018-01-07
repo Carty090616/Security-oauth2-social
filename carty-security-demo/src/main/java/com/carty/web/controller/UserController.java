@@ -24,6 +24,18 @@ import com.carty.exception.UserNotExistException;
 public class UserController {
 
 	/**
+	 * 获取全部用户
+	 */
+	@RequestMapping("/all")
+	public List<User> queryAll(){
+		List<User> list = new ArrayList<>();
+		User user = new User();
+		user.setUsername("carty");
+		list.add(user);
+		return list;
+	}
+	
+	/**
 	 * 查询请求
 	 * @RequestParam 映射请求参数到java方法的参数
 	 */
