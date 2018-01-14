@@ -7,10 +7,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.carty.security.browser.authentication.CartyAuthenctiationFailureHandler;
 import com.carty.security.browser.authentication.CartyAuthenticationSuccessHandler;
 import com.carty.security.core.properties.SecurityProperties;
+import com.carty.security.core.validate.code.ValidateCodeFilter;
 
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter{
@@ -27,7 +29,15 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.formLogin()//表单登陆
+		ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+		validateCodeFilter.setAuthenticationFailureHandler(cartyAuthenctiationFailureHandler);
+		validateCodeFilter.setSecurityProperties(securityProperties);
+		validateCodeFilter.afterPropertiesSet();
+		
+		http
+			//在UsernamePasswordAuthenticationFilter前面添加过滤器
+			.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+			.formLogin()//表单登陆
 //		http.httpBasic()//表示security提供的默认登录方式，会有一个弹框弹出登陆
 			.loginPage("/authentication/require")//配置登陆页
 			.loginProcessingUrl("/authentication/form")//配置登陆登陆页的form表单的action属性值（用于的登陆的URL）
@@ -36,7 +46,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter{
 			.and()
 			.authorizeRequests()//表示以下的配置都是授权的配置
 			.antMatchers("/authentication/require",
-					securityProperties.getBrowser().getLoginPage()).permitAll()//表示这个URL不需要身份认证
+					securityProperties.getBrowser().getLoginPage(),
+					"/code/image").permitAll()//表示这个URL不需要身份认证
 			.anyRequest()//表示所有请求
 			.authenticated()//表示都需要身份认证
 			.and()

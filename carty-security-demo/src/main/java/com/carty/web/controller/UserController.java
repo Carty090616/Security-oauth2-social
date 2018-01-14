@@ -3,11 +3,10 @@ package com.carty.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
-
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +21,24 @@ import com.carty.exception.UserNotExistException;
 
 @RestController
 public class UserController {
+	
+	/**
+	 * 获取当前登陆信息
+	 * @return
+	 */
+	@GetMapping("/me")
+	public Object getCurrentUser(){
+		return SecurityContextHolder.getContext().getAuthentication();
+	}
+	
+	/**
+	 * 获取当前登陆信息，第二种方式
+	 * @return
+	 */
+	@GetMapping("/me02")
+	public Object getCurrentUser02(Authentication authentication){
+		return authentication;
+	}
 
 	/**
 	 * 获取全部用户

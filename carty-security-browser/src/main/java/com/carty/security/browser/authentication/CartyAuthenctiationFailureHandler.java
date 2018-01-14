@@ -33,7 +33,6 @@ public class CartyAuthenctiationFailureHandler extends SimpleUrlAuthenticationFa
 	
 	@Autowired
 	private SecurityProperties securityProperties;
-
 	
 	/* (non-Javadoc)
 	 * @see org.springframework.security.web.authentication.AuthenticationFailureHandler#onAuthenticationFailure(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.security.core.AuthenticationException)

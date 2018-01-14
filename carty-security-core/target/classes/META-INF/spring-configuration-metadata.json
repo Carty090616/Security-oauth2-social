@@ -12,6 +12,11 @@
       "sourceType": "com.carty.security.core.properties.SecurityProperties",
       "name": "carty.security.browser",
       "type": "com.carty.security.core.properties.BrowserProperties"
+    },
+    {
+      "sourceType": "com.carty.security.core.properties.SecurityProperties",
+      "name": "carty.security.code",
+      "type": "com.carty.security.core.properties.ValidateCodeProperties"
     }
   ]
 }
