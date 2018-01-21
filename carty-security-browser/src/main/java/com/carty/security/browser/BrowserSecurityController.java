@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carty.security.browser.support.SimpleResponse;
+import com.carty.security.core.properties.SecurityConstants;
 import com.carty.security.core.properties.SecurityProperties;
 
 @RestController
@@ -43,20 +44,21 @@ public class BrowserSecurityController {
 	 * @return
 	 * @throws IOException 
 	 */
-	@RequestMapping("/authentication/require")
+	@RequestMapping(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
 	@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-	public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		
+	public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+
 		SavedRequest savedRequest = requestCache.getRequest(request, response);
-		
-		if(savedRequest != null){
-			String targetURL = savedRequest.getRedirectUrl();
-			logger.info("引发跳转的URL："+targetURL);
-			if(StringUtils.endsWithIgnoreCase(targetURL, ".html")){
+
+		if (savedRequest != null) {
+			String targetUrl = savedRequest.getRedirectUrl();
+			logger.info("引发跳转的请求是:" + targetUrl);
+			if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
 				redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
 			}
 		}
-		
-		return new SimpleResponse("访问的服务需要认证，请引导用户到登陆页");
+
+		return new SimpleResponse("访问的服务需要身份认证，请引导用户到登录页");
 	}
 }
