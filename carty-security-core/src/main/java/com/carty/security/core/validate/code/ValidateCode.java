@@ -8,35 +8,23 @@ import java.time.LocalDateTime;
  * @author Administrator
  *
  */
-public class ImageCode {
+public class ValidateCode {
 
-	//图片
-	private BufferedImage image;
 	//验证码
 	private String code;
 	//失效时间
 	private LocalDateTime expireTime;
 	
 	//expireIn表示多少秒过期
-	public ImageCode (BufferedImage image, String code, int expireIn){
-		this.image = image;
+	public ValidateCode (String code, int expireIn){
 		this.code = code;
 		//表示当前时间加上秒数，然后生成一个新的时间，这个时间就表示验证码失效的时间
 		this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
 	}	
 	
-	public ImageCode (BufferedImage image, String code, LocalDateTime expireTime){
-		this.image = image;
+	public ValidateCode (String code, LocalDateTime expireTime){
 		this.code = code;
 		this.expireTime = expireTime;
-	}
-
-	public BufferedImage getImage() {
-		return image;
-	}
-
-	public void setImage(BufferedImage image) {
-		this.image = image;
 	}
 
 	public String getCode() {
